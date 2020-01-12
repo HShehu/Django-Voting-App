@@ -23,22 +23,38 @@ class Contestant(models.Model):
     approved = models.BooleanField(default=False)
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'poll'], name='unique_contestant')
+        ]
 
     def __str__(self):
-        return self.user.full_name + ": "+ self.user.student_number
-
+        return self.user.full_name + ": " + self.user.student_number
 
 
 class Choice(models.Model):
-    contestant = models.ForeignKey(Contestant, on_delete=models.CASCADE, limit_choices_to={"approved": True})
+    contestant = models.ForeignKey(
+        Contestant, on_delete=models.CASCADE, limit_choices_to={"approved": True})
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
     votes = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['contestant', 'poll'], name='unique_choice')
+        ]
 
     def __str__(self):
         return self.contestant.user.full_name + ": " + self.poll.poll_text
 
 
-
 class Voter(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'poll'], name='unique_voter')
+        ]

@@ -21,6 +21,7 @@ class PollAdmin(admin.ModelAdmin):
 
 class ContestantAdmin(admin.ModelAdmin):
     list_display = ('user','poll','approved',)
+    ordering = ('approved',)
 
 
 admin.site.register(Poll, PollAdmin)

@@ -15,7 +15,7 @@
         <div class="card-body">
             <p class="lead">
                 {{ poll.poll_text }}
-                <small class="text-muted">{{poll.end_date|timeuntil:poll.start_date}} Left</small>
+                <small class="text-muted">Ends:{{poll.end_date}}</small>
             </p>
 
             {% if poll.is_past_due %}

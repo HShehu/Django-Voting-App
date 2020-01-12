@@ -5,9 +5,29 @@
 <div class="container">
     <h1 class="mb-5 text-center">{{ poll.poll_text }}</h1>
 
-    <h3 class="mb-3 text-center display-3">{{poll.end_date|timeuntil:poll.start_date}} Left</h3>
+    <a class="btn btn-secondary" href="{% url 'VotingApp:home' %}">Back To Polls</a>
 
-    <a class="btn btn-secondary mb-2" href="{% url 'VotingApp:home' %}">Back To Polls</a>
+    <div class="container-fluid text-center mb-2">
+        <div id="clockdiv">
+            <div>
+                <span class="days"></span>
+                <div class="smalltext">Days</div>
+            </div>
+            <div>
+                <span class="hours"></span>
+                <div class="smalltext">Hours</div>
+            </div>
+            <div>
+                <span class="minutes"></span>
+                <div class="smalltext">Minutes</div>
+            </div>
+            <div>
+                <span class="seconds"></span>
+                <div class="smalltext">Seconds</div>
+            </div>
+        </div>
+    </div>
+
 
     <ul class="list-group mb-5">
         {% for choice in poll.choice_set.all %}
@@ -21,5 +41,3 @@
     <div id="myChart"></div>
 </div>
 {% endblock content %}
-
-    
